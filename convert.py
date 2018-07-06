@@ -1,3 +1,5 @@
+
+# opens a .bin file called "fm_output" and converts it's contents to a .txt file
 with open('fm_output') as fin:
 	buf = fin.read()
 bytes = map(ord,buf)
