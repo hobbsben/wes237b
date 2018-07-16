@@ -33,8 +33,8 @@ void initDCT(int WIDTH, int HEIGHT)
         {
             for(int x=0;x<HEIGHT;x++)
                 {
-	matx.at<float>(kx,x)=cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx);
-	//matx_ptr[kx*HEIGHT+x]=cos((M_PI/((float)Nx))*(x+0.5)*(float)kx);
+	//matx.at<float>(kx,x)=sf(kx)*cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx);
+	matx_ptr[kx*HEIGHT+x]=sf(kx)*(1./sqrt(HEIGHT))*cos((M_PI/((float)HEIGHT))*(x+1./2.)*(float)kx);
                 }
         }
 
@@ -42,12 +42,13 @@ void initDCT(int WIDTH, int HEIGHT)
         {
             for(int y=0;y<WIDTH;y++)
                 {
-        maty.at<float>(ky,y)=cos(M_PI/((float)HEIGHT)*(y+1./2.)*(float)ky);
-	//maty_ptr[ky*WIDTH+y]=cos((M_PI/((float)Ny))*(y+0.5)*(float)ky);
+        //maty.at<float>(ky,y)=sf(ky)*cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
+	maty_ptr[ky*WIDTH+y]=sf(ky)*(1./sqrt(WIDTH))*cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
                 }
         }
 }
 
+/*
 // Baseline: O(N^4)
 Mat student_dct(Mat input)
 {
@@ -78,10 +79,9 @@ Mat student_dct(Mat input)
 				{
 					value += input_ptr[x * WIDTH + y]
 					*matx_ptr[kx* HEIGHT + x]
-					*maty_ptr[ky * WIDTH + y];
+					*matx_ptr[ky * WIDTH + y];
 					//*matx.at<float>(kx,x)
 					//*maty.at<float>(ky,y);
-					
 					//* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx)
 					//* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
 					
@@ -90,30 +90,25 @@ Mat student_dct(Mat input)
 			// TODO
 			// --- Incorporate the scale in the LUT coefficients ---
 			// --- and remove the line below ---
-			value = scale * sf(kx) * sf(ky) * value;
-
-			result_ptr[kx * WIDTH + ky] = value;
+			//value = scale * sf(kx) * sf(ky) * value;
+		        
+			result_ptr[kx * WIDTH + ky] = 2*value;
 		}
 	}
 
 	return result;
 }
-
-
-// *****************
-//   Hint
-// *****************
-//
+*/
 // DCT as matrix multiplication
 
-/*
 Mat student_dct(Mat input)
 {
 	// -- Works only for WIDTH == HEIGHT
 	assert(input.rows == input.cols);
 
 	// -- Matrix multiply with OpenCV
-	Mat output = LUT_w * input * LUT_w.t();
+	Mat output = matx * input * maty.t();
+	output+=output;
 
 	// TODO
 	// Replace the line above by your own matrix multiplication code
@@ -121,4 +116,4 @@ Mat student_dct(Mat input)
 
 	return output;
 }
-*/
+
