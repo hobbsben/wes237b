@@ -1,12 +1,12 @@
 #include "main.h"
 #include "math.h"
-#include <iostream>
+
 
 using namespace cv;
-using namespace std;
 
 Mat matx;
 Mat maty;
+
 
 // Helper function
 float sf(int in){
@@ -18,104 +18,81 @@ float sf(int in){
 // Initialize LUT
 void initDCT(int WIDTH, int HEIGHT)
 {
-        // matx.create(HEIGHT,WIDTH,CV_32FC1);
-        // maty.create(HEIGHT,WIDTH,CV_32FC1);     
-        
-        
-        int Nx, Ny = HEIGHT;
+	HEIGHT=WIDTH;
+        matx.create(HEIGHT,WIDTH,CV_32FC1);
+        maty.create(HEIGHT,WIDTH,CV_32FC1);
+	int Nx, Ny = HEIGHT;
 
-        Mat matx(HEIGHT, WIDTH, CV_32FC1);
-        Mat maty(HEIGHT, WIDTH, CV_32FC1);
-        
-        for(int x=0;x<HEIGHT;x++)//k are the resolution which is going to be o to N;
+
+	//Mat matx(HEIGHT,WIDTH,CV_32FC1); //this makes the output all black. ERROR.
+	//Mat maty(HEIGHT,WIDTH,CV_32FC1); // KILLS CODE
+	float* matx_ptr = matx.ptr<float>();
+	float* maty_ptr = maty.ptr<float>();
+
+	for(int kx=0;kx<HEIGHT;kx++)//k is the resolution which is going to be 0 to N;
         {
-            for(int kx=0;kx<WIDTH;kx++)
+            for(int x=0;x<HEIGHT;x++)
                 {
-                matx.at<float>(x,kx)=cos(M_PI/(float)Nx*(float)kx*(x+0.5));
+	matx.at<float>(kx,x)=cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx);
+	//matx_ptr[kx*HEIGHT+x]=cos((M_PI/((float)Nx))*(x+0.5)*(float)kx);
                 }
         }
 
-	for(int y=0;y<HEIGHT;y++)
+	for(int ky=0;ky<WIDTH;ky++)
         {
-            for(int ky=0;ky<WIDTH;ky++)
+            for(int y=0;y<WIDTH;y++)
                 {
-                maty.at<float>(y,ky)=cos(M_PI/(float)Ny*(float)ky*(y+0.5));
+        maty.at<float>(ky,y)=cos(M_PI/((float)HEIGHT)*(y+1./2.)*(float)ky);
+	//maty_ptr[ky*WIDTH+y]=cos((M_PI/((float)Ny))*(y+0.5)*(float)ky);
                 }
         }
-        
-
-        /********************from 7/11****************************************/
-	// int matx[HEIGHT][WIDTH]={}{};
-        // int maty[HEIGHT][WIDTH]={}{};	
-	
-        
-	/*for(int x=0;x<=HEIGHT;x++)//k are the resolution which is going to be o to N;
-        {
-            for(int kx=0;kx<=WIDTH;kx++)
-                {
-		matx[x][kx]=valuex;
-                valuex=cos(M_PI/(float)Nx*(float)kx*(x+0.5));
-                }
-        }
-
-	for(int y=0;y<=HEIGHT;y++)
-        {
-            for(int ky=0;ky<=WIDTH;ky++)
-                {
-		maty[y][ky]=valuey;
-                valuey=cos(M_PI/(float)Ny*(float)ky*(y+0.5));
-                }
-        }*/
-
-        /************************************************************/
-
 }
-
-
 
 // Baseline: O(N^4)
 Mat student_dct(Mat input)
 {
 	const int HEIGHT = input.rows;
 	const int WIDTH  = input.cols;
-
 	float scale = 2./sqrt(HEIGHT*WIDTH);
-
+	int kx=0;
+	int ky=0;
+	int x=0;
+	int y=0;
 	Mat result = Mat(HEIGHT, WIDTH, CV_32FC1);
 
 	// Note: Using pointers is faster than Mat.at<float>(x,y)
 	// Try to use pointers for your LUT as well
 	float* result_ptr = result.ptr<float>();
 	float* input_ptr  = input.ptr<float>();
-
-	for(int x = 0; x < HEIGHT; x++)
+	float* matx_ptr   = matx.ptr<float>();
+	float* maty_ptr   = maty.ptr<float>();
+	for(int kx = 0; kx < HEIGHT; kx++)
 	{
-		for(int y = 0; y < WIDTH; y++)
+		for(int ky = 0; ky < WIDTH; ky++)
 		{
 			float value = 0.f;
 
-			for(int i = 0; i < HEIGHT; i++)
+			for(int x = 0; x < HEIGHT; x++)
 			{
-				for(int j = 0; j < WIDTH; j++)
+				for(int y = 0; y < WIDTH; y++)
 				{
-					value += input_ptr[i * WIDTH + j] 
-					* matx.at<float>(i,j)
-                                        * maty.at<float>(i,j);
-				        // TODO
-			                // --- Replace cos calculation by LUT ---
-					//* cos(M_PI/((float)HEIGHT)*(i+1./2.)*(float)x)
-				        //* cos(M_PI/((float)WIDTH)*(j+1./2.)*(float)y);
-                                        
-                                        cout << matx.at<float>(i,j);
-                                     
+					value += input_ptr[x * WIDTH + y]
+					*matx_ptr[kx* HEIGHT + x]
+					*maty_ptr[ky * WIDTH + y];
+					//*matx.at<float>(kx,x)
+					//*maty.at<float>(ky,y);
+					
+					//* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx)
+					//* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
+					
 				}
 			}
 			// TODO
 			// --- Incorporate the scale in the LUT coefficients ---
 			// --- and remove the line below ---
-			value = scale * sf(x) * sf(y) * value;
+			value = scale * sf(kx) * sf(ky) * value;
 
-			result_ptr[x * WIDTH + y] = value;
+			result_ptr[kx * WIDTH + ky] = value;
 		}
 	}
 
@@ -145,8 +122,3 @@ Mat student_dct(Mat input)
 	return output;
 }
 */
-
-
-
-
-
