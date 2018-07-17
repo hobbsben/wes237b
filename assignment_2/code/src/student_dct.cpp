@@ -1,12 +1,11 @@
 #include "main.h"
 #include "math.h"
 
-
 using namespace cv;
 
 Mat matx;
 Mat maty;
-
+Mat output;
 
 // Helper function
 float sf(int in){
@@ -107,12 +106,39 @@ Mat student_dct(Mat input)
 	assert(input.rows == input.cols);
 
 	// -- Matrix multiply with OpenCV
-	Mat output = matx * input * maty.t();
-	output+=output;
+	//Mat output = matx * input * maty.t();
+	//output+=output;
 
 	// TODO
 	// Replace the line above by your own matrix multiplication code
-	// You can use a temp matrix to store the intermediate result
+	// You can use a temp matrix to store the intermediate result:
+Mat blocksize=8;
+int HEIGHT =input.rows;
+int WIDTH  =input.cols;
+int output = 0;
+//float* output_ptr  = output.ptr<float>();
+//float* input_ptr   = input.ptr<float>();
+//float* matx_ptr    = matx.ptr<float>();
+//float* maty_ptr    = maty.ptr<float>();
+Mat temp;
+temp.create(blocksize,blocksize,CV_32FC1);
+for(int i=0; i < HEIGHT; i=i+blocksize){//blocks
+for(int j=0; i < blocksize; j=j+blocksize){//rows;
+	
+//temp(8x8)=matx(8x64)*input(64x8);	
+//output(Range(row,row+8),Range(64x8))
+		}
+	}
+
+for(int i=0; i < HEIGHT; i=i+blocksize){//blocks
+for(int j=0; i < blocksize; j=j+blocksize){//rows;
+
+//temp(8x8)=C(8x64)*maty.t(64x8);	
+//output(Range(row,row+8),Range(64x8))	
+		}
+	}
+	
+
 
 	return output;
 }
