@@ -1,5 +1,8 @@
 #include "main.h"
 #include "math.h"
+//#ifndef min
+//#define min(a,b)	((((a)<(b))? (a):(b))
+#include "stdio.h"
 
 using namespace cv;
 
@@ -33,7 +36,7 @@ void initDCT(int WIDTH, int HEIGHT)
             for(int x=0;x<HEIGHT;x++)
                 {
 	//matx.at<float>(kx,x)=sf(kx)*cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx);
-	matx_ptr[kx*HEIGHT+x]=sf(kx)*(1./sqrt(HEIGHT))*cos((M_PI/((float)HEIGHT))*(x+1./2.)*(float)kx);
+	matx_ptr[kx*HEIGHT+x]=sf(kx)*sqrt(2./HEIGHT)*cos((M_PI/((float)HEIGHT))*(x+1./2.)*(float)kx);
                 }
         }
 
@@ -42,7 +45,7 @@ void initDCT(int WIDTH, int HEIGHT)
             for(int y=0;y<WIDTH;y++)
                 {
         //maty.at<float>(ky,y)=sf(ky)*cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
-	maty_ptr[ky*WIDTH+y]=sf(ky)*(1./sqrt(WIDTH))*cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
+	maty_ptr[ky*WIDTH+y]=sf(ky)*sqrt(2./WIDTH)*cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
                 }
         }
 }
@@ -91,15 +94,15 @@ Mat student_dct(Mat input)
 			// --- and remove the line below ---
 			//value = scale * sf(kx) * sf(ky) * value;
 		        
-			result_ptr[kx * WIDTH + ky] = 2*value;
+			result_ptr[kx * WIDTH + ky] = value;
 		}
 	}
 
 	return result;
 }
 */
-// DCT as matrix multiplication
 
+// DCT as matrix multiplicatio
 Mat student_dct(Mat input)
 {
 	// -- Works only for WIDTH == HEIGHT
@@ -107,39 +110,62 @@ Mat student_dct(Mat input)
 
 	// -- Matrix multiply with OpenCV
 	//Mat output = matx * input * maty.t();
-	//output+=output;
+	//output+=(1/8)*output;
 
 	// TODO
 	// Replace the line above by your own matrix multiplication code
 	// You can use a temp matrix to store the intermediate result:
-Mat blocksize=8;
-int HEIGHT =input.rows;
-int WIDTH  =input.cols;
-int output = 0;
-//float* output_ptr  = output.ptr<float>();
-//float* input_ptr   = input.ptr<float>();
-//float* matx_ptr    = matx.ptr<float>();
-//float* maty_ptr    = maty.ptr<float>();
-Mat temp;
-temp.create(blocksize,blocksize,CV_32FC1);
-for(int i=0; i < HEIGHT; i=i+blocksize){//blocks
-for(int j=0; i < blocksize; j=j+blocksize){//rows;
-	
-//temp(8x8)=matx(8x64)*input(64x8);	
-//output(Range(row,row+8),Range(64x8))
-		}
-	}
 
-for(int i=0; i < HEIGHT; i=i+blocksize){//blocks
-for(int j=0; i < blocksize; j=j+blocksize){//rows;
-
-//temp(8x8)=C(8x64)*maty.t(64x8);	
-//output(Range(row,row+8),Range(64x8))	
-		}
-	}
-	
+int HEIGHT = input.rows;
+int WIDTH  = input.cols;
+Mat output(HEIGHT,WIDTH,CV_32FC1,0.0);
+Mat C(HEIGHT,WIDTH,CV_32FC1,0.0);
+int blocksize=8;
+//float* output_ptr  = output.ptr<float>();//float* input_ptr   = input.ptr<float>();
+//float* matx_ptr    = matx.ptr<float>();//float* maty_ptr    = maty.ptr<float>();
+//maty.t();
 
 
-	return output;
+for(int k=0; k <=HEIGHT+blocksize; k=k+blocksize)
+{
+	for(int j=0; j<=WIDTH; j=j+blocksize)
+    	{
+		for(int i=0; i<HEIGHT; i++)
+        	{
+			for(int jj =j; jj<min(j+blocksize,HEIGHT); ++jj)
+            		{
+               			 for(int kk=k; kk<min(k+blocksize,WIDTH); ++kk)
+                 		{
+                 		   C.at<float>(i,jj)+=maty.at<float>(i,kk)*input.at<float>(kk,jj);
+              	 		}
+        
+            		}
+        	}
+
+    	}
 }
+
+matx.t();
+for(int k=0; k <=HEIGHT; k=k+blocksize)
+{
+	for(int j=0; j <=WIDTH; j=j+blocksize)
+    {
+		for(int i=0; i<HEIGHT; i++)
+        {
+			for(int jj=j; jj<min(j+blocksize,HEIGHT); ++jj)
+            {
+                		for(int kk=k; kk<min(k+blocksize,WIDTH); ++kk)
+                {
+            			  output.at<float>(i,jj)+=C.at<float>(i,kk)*matx.at<float>(kk,jj);
+                }
+
+            }
+        }
+
+    }
+}
+
+return output;
+}
+
 
