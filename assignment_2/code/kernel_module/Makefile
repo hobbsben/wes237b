@@ -1,1 +1,0 @@
-obj-m += CPUcntr.o 
