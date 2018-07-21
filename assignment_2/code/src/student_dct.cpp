@@ -6,9 +6,9 @@
 
 using namespace cv;
 
+
 Mat matx;
 Mat maty;
-Mat output;
 
 // Helper function
 float sf(int in){
@@ -21,13 +21,11 @@ float sf(int in){
 void initDCT(int WIDTH, int HEIGHT)
 {
 	HEIGHT=WIDTH;
+	int Nx, Ny = HEIGHT;
         matx.create(HEIGHT,WIDTH,CV_32FC1);
         maty.create(HEIGHT,WIDTH,CV_32FC1);
-	int Nx, Ny = HEIGHT;
-
-
-	//Mat matx(HEIGHT,WIDTH,CV_32FC1); //this makes the output all black. ERROR.
-	//Mat maty(HEIGHT,WIDTH,CV_32FC1); // KILLS CODE
+	
+	
 	float* matx_ptr = matx.ptr<float>();
 	float* maty_ptr = maty.ptr<float>();
 
@@ -80,19 +78,19 @@ Mat student_dct(Mat input)
 				for(int y = 0; y < WIDTH; y++)
 				{
 					value += input_ptr[x * WIDTH + y]
-					*matx_ptr[kx* HEIGHT + x]
-					*matx_ptr[ky * WIDTH + y];
+					//*matx_ptr[kx* HEIGHT + x]                     // part 1 LUT
+					//*matx_ptr[ky * WIDTH + y];                    // part 1 LUT
 					//*matx.at<float>(kx,x)
 					//*maty.at<float>(ky,y);
-					//* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx)
-					//* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky);
+					* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx) // part 0
+					* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky); // part 0
 					
 				}
 			}
 			// TODO
 			// --- Incorporate the scale in the LUT coefficients ---
 			// --- and remove the line below ---
-			//value = scale * sf(kx) * sf(ky) * value;
+			value = scale * sf(kx) * sf(ky) * value;  //part 0
 		        
 			result_ptr[kx * WIDTH + ky] = value;
 		}
@@ -101,8 +99,9 @@ Mat student_dct(Mat input)
 	return result;
 }
 */
+//end of baseline
 
-// DCT as matrix multiplicatio
+// DCT as matrix multiplication
 Mat student_dct(Mat input)
 {
 	// -- Works only for WIDTH == HEIGHT
@@ -111,32 +110,33 @@ Mat student_dct(Mat input)
 	// -- Matrix multiply with OpenCV
 	//Mat output = matx * input * maty.t();
 	//output+=(1/8)*output;
+//end of second DCT
 
-	// TODO
-	// Replace the line above by your own matrix multiplication code
-	// You can use a temp matrix to store the intermediate result:
 
 int HEIGHT = input.rows;
 int WIDTH  = input.cols;
 Mat output(HEIGHT,WIDTH,CV_32FC1,0.0);
 Mat C(HEIGHT,WIDTH,CV_32FC1,0.0);
+
 int blocksize=8;
 //float* output_ptr  = output.ptr<float>();//float* input_ptr   = input.ptr<float>();
 //float* matx_ptr    = matx.ptr<float>();//float* maty_ptr    = maty.ptr<float>();
-//maty.t();
 
 
-for(int k=0; k <=HEIGHT+blocksize; k=k+blocksize)
+
+for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
 {
-	for(int j=0; j<=WIDTH; j=j+blocksize)
+	for(int j=0; j<WIDTH+blocksize; j=j+blocksize)
     	{
-		for(int i=0; i<HEIGHT; i++)
-        	{
-			for(int jj =j; jj<min(j+blocksize,HEIGHT); ++jj)
+		for(int i=0; i<HEIGHT;i++)
+		{
+		
+			for(int jj =j; jj<min(j+blocksize,HEIGHT); jj++)
             		{
-               			 for(int kk=k; kk<min(k+blocksize,WIDTH); ++kk)
+               		 	for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
                  		{
-                 		   C.at<float>(i,jj)+=maty.at<float>(i,kk)*input.at<float>(kk,jj);
+		
+                 		   C.at<float>(i,jj)+=matx.at<float>(i,kk)*input.at<float>(kk,jj);
               	 		}
         
             		}
@@ -145,27 +145,29 @@ for(int k=0; k <=HEIGHT+blocksize; k=k+blocksize)
     	}
 }
 
-matx.t();
-for(int k=0; k <=HEIGHT; k=k+blocksize)
-{
-	for(int j=0; j <=WIDTH; j=j+blocksize)
-    {
-		for(int i=0; i<HEIGHT; i++)
-        {
-			for(int jj=j; jj<min(j+blocksize,HEIGHT); ++jj)
-            {
-                		for(int kk=k; kk<min(k+blocksize,WIDTH); ++kk)
-                {
-            			  output.at<float>(i,jj)+=C.at<float>(i,kk)*matx.at<float>(kk,jj);
-                }
+Mat Transpose=maty.t();
 
-            }
-        }
+for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
+{
+	for(int j=0; j <WIDTH+blocksize; j=j+blocksize)
+    {
+		for(int i=0; i<HEIGHT;i++)
+		{
+			for(int jj=j; jj<min(j+blocksize,HEIGHT); jj++)
+            		{
+                		for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
+               	     		{
+				
+            			  output.at<float>(i,jj)+=C.at<float>(i,kk)*Transpose.at<float>(kk,jj);
+               			 }
+
+                    	 }
+                 }
 
     }
 }
 
-return output;
+return output;  // for the 2nd and 3rd DCTs
 }
 
 

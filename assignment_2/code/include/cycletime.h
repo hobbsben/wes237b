@@ -11,7 +11,7 @@ Author = "Alireza Khodamoradi"
 static inline unsigned int get_cyclecount(void){
   unsigned int value;
   // Read CCNT register
-  // asm volatile ("MRC p15, 0, %0, c9, c13, 0\n\t" : "=r"(value));
+   asm volatile ("MRC p15, 0, %0, c9, c13, 0\n\t" : "=r"(value));
   return value;
 }
 
@@ -23,10 +23,10 @@ static inline void init_counters(int32_t do_reset, int32_t enable_divider){
     value |= 8;
   value |= 16;
   // Program the performance-counter control-register
-  // asm volatile ("MCR p15, 0, %0, c9, c12, 0\n\t" :: "r"(value));
+   asm volatile ("MCR p15, 0, %0, c9, c12, 0\n\t" :: "r"(value));
   // Enable all counters
-  // asm volatile ("MCR p15, 0, %0, c9, c12, 1\n\t" :: "r"(0x8000000f));
+   asm volatile ("MCR p15, 0, %0, c9, c12, 1\n\t" :: "r"(0x8000000f));
   // Clear overflow 
-  // asm volatile ("MCR p15, 0, %0, c9, c12, 3\n\t" :: "r"(0x8000000f));
+   asm volatile ("MCR p15, 0, %0, c9, c12, 3\n\t" :: "r"(0x8000000f));
 }
 
