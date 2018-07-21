@@ -49,7 +49,10 @@ void initDCT(int WIDTH, int HEIGHT)
 }
 
 /*
-// Baseline: O(N^4)
+
+
+/********** Part 1 Naive LUT implementation  *****************************/
+/*
 Mat student_dct(Mat input)
 {
 	const int HEIGHT = input.rows;
@@ -78,19 +81,19 @@ Mat student_dct(Mat input)
 				for(int y = 0; y < WIDTH; y++)
 				{
 					value += input_ptr[x * WIDTH + y]
-					//*matx_ptr[kx* HEIGHT + x]                     // part 1 LUT
-					//*matx_ptr[ky * WIDTH + y];                    // part 1 LUT
-					//*matx.at<float>(kx,x)
-					//*maty.at<float>(ky,y);
-					* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx) // part 0
-					* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky); // part 0
+					*matx_ptr[kx* HEIGHT + x]                     // part 1 LUT implementation
+					*matx_ptr[ky * WIDTH + y];                    // part 1 LUT implementation
+					
+					//* cos(M_PI/((float)HEIGHT)*(x+1./2.)*(float)kx) // part 0 without LUT
+					//* cos(M_PI/((float)WIDTH)*(y+1./2.)*(float)ky); // part 0 without LUT
 					
 				}
 			}
 			// TODO
 			// --- Incorporate the scale in the LUT coefficients ---
 			// --- and remove the line below ---
-			value = scale * sf(kx) * sf(ky) * value;  //part 0
+			
+			//value = scale * sf(kx) * sf(ky) * value;  // part 0 without LUT
 		        
 			result_ptr[kx * WIDTH + ky] = value;
 		}
@@ -99,75 +102,91 @@ Mat student_dct(Mat input)
 	return result;
 }
 */
-//end of baseline
+/*********************  end of Part 1 LUT Implementation ***************************/
 
-// DCT as matrix multiplication
+
+
+/*****************Part 2:  DCT as matrix multiplication ***************************/
+/*
 Mat student_dct(Mat input)
 {
 	// -- Works only for WIDTH == HEIGHT
 	assert(input.rows == input.cols);
 
-	// -- Matrix multiply with OpenCV
-	//Mat output = matx * input * maty.t();
-	//output+=(1/8)*output;
-//end of second DCT
+	
+	 Mat output = matx * input * maty.t();    // uncomment for Matrix Multiply Part 2
+	 output+=(1/8)*output;                    // uncomment for Matrix Multiply Part 2
 
 
-int HEIGHT = input.rows;
-int WIDTH  = input.cols;
-Mat output(HEIGHT,WIDTH,CV_32FC1,0.0);
-Mat C(HEIGHT,WIDTH,CV_32FC1,0.0);
-
-int blocksize=8;
-//float* output_ptr  = output.ptr<float>();//float* input_ptr   = input.ptr<float>();
-//float* matx_ptr    = matx.ptr<float>();//float* maty_ptr    = maty.ptr<float>();
+	return output;  // for Part MM and Part 3 BMM	
+}
+// */
+/***************** End of DCT as matrix multiplication (Part 2) *********************/
 
 
-
-for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
+/**********************BMM Part 3 ********************************************/
+// /*
+Mat student_dct(Mat input)
 {
-	for(int j=0; j<WIDTH+blocksize; j=j+blocksize)
-    	{
-		for(int i=0; i<HEIGHT;i++)
-		{
+	// -- Works only for WIDTH == HEIGHT
+	assert(input.rows == input.cols);
+
+	int HEIGHT = input.rows;
+	int WIDTH  = input.cols;
+	Mat output(HEIGHT,WIDTH,CV_32FC1,0.0);
+	Mat C(HEIGHT,WIDTH,CV_32FC1,0.0);
+
+	int blocksize=8;
+	//float* output_ptr  = output.ptr<float>();//float* input_ptr   = input.ptr<float>();     // Part 2: Matrix Multiplication
+	//float* matx_ptr    = matx.ptr<float>();//float* maty_ptr    = maty.ptr<float>();        // Part 2: Matrix Multiplication
+
+
+
+	for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
+	{
+		for(int j=0; j<WIDTH+blocksize; j=j+blocksize)
+	    	{
+			for(int i=0; i<HEIGHT;i++)
+			{
+			
+				for(int jj =j; jj<min(j+blocksize,HEIGHT); jj++)
+		    		{
+		       		 	for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
+		         		{
+			
+		         		   C.at<float>(i,jj)+=matx.at<float>(i,kk)*input.at<float>(kk,jj);
+		      	 		}
 		
-			for(int jj =j; jj<min(j+blocksize,HEIGHT); jj++)
-            		{
-               		 	for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
-                 		{
-		
-                 		   C.at<float>(i,jj)+=matx.at<float>(i,kk)*input.at<float>(kk,jj);
-              	 		}
-        
-            		}
-        	}
+		    		}
+			}
 
-    	}
+	    	}
+	}
+
+	Mat Transpose=maty.t();
+
+	for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
+	{
+		for(int j=0; j <WIDTH+blocksize; j=j+blocksize)
+	    {
+			for(int i=0; i<HEIGHT;i++)
+			{
+				for(int jj=j; jj<min(j+blocksize,HEIGHT); jj++)
+		    		{
+		        		for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
+		       	     		{
+					
+		    			  output.at<float>(i,jj)+=C.at<float>(i,kk)*Transpose.at<float>(kk,jj);
+		       			 }
+
+		            	 }
+		         }
+
+	    }
+	}
+
+return output;  
 }
-
-Mat Transpose=maty.t();
-
-for(int k=0; k <HEIGHT+blocksize; k=k+blocksize)
-{
-	for(int j=0; j <WIDTH+blocksize; j=j+blocksize)
-    {
-		for(int i=0; i<HEIGHT;i++)
-		{
-			for(int jj=j; jj<min(j+blocksize,HEIGHT); jj++)
-            		{
-                		for(int kk=k; kk<min(k+blocksize,WIDTH); kk++)
-               	     		{
-				
-            			  output.at<float>(i,jj)+=C.at<float>(i,kk)*Transpose.at<float>(kk,jj);
-               			 }
-
-                    	 }
-                 }
-
-    }
-}
-
-return output;  // for the 2nd and 3rd DCTs
-}
-
+// */
+/************************* End of BMM (Part 3) ************************/
 
