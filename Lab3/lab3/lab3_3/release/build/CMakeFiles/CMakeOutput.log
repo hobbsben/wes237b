@@ -1,0 +1,267 @@
+The system is: Linux - 3.12.0-xillinux-1.3 - armv7l
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/3.2.1/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3381821582/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3381821582.dir/build.make CMakeFiles/cmTryCompileExec3381821582.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3381821582.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3381821582.dir/testCCompiler.c.o   -c /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec3381821582
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3381821582.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3381821582.dir/testCCompiler.c.o  -o cmTryCompileExec3381821582 -rdynamic 
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec334690705/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec334690705.dir/build.make CMakeFiles/cmTryCompileExec334690705.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+make[1]: Warning: File `/usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c' has modification time 1.4e+09 s in the future
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec334690705
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec334690705.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec334690705 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.6/lto-wrapper
+Target: arm-linux-gnueabihf
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 4.6.3-1ubuntu5' --with-bugurl=file:///usr/share/doc/gcc-4.6/README.Bugs --enable-languages=c,c++,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.6 --enable-shared --enable-linker-build-id --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.6 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --enable-plugin --enable-objc-gc --enable-multilib --disable-sjlj-exceptions --with-arch=armv7-a --with-float=hard --with-fpu=vfpv3-d16 --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+Thread model: posix
+gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) 
+COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/
+LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib/:/lib/arm-linux-gnueabihf/:/lib/../lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/../lib/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec334690705' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb'
+ /usr/lib/gcc/arm-linux-gnueabihf/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -z relro -o cmTryCompileExec334690705 /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbegin.o -L/usr/lib/gcc/arm-linux-gnueabihf/4.6 -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib -L/lib/arm-linux-gnueabihf -L/lib/../lib -L/usr/lib/arm-linux-gnueabihf -L/usr/lib/../lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../.. CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/arm-linux-gnueabihf/4.6/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o
+make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec334690705/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec334690705.dir/build.make CMakeFiles/cmTryCompileExec334690705.dir/build]
+  ignore line: [make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp']
+  ignore line: [make[1]: Warning: File `/usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c' has modification time 1.4e+09 s in the future]
+  ignore line: [/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o   -c /usr/local/share/cmake-3.2/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec334690705]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec334690705.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec334690705 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/arm-linux-gnueabihf/4.6/lto-wrapper]
+  ignore line: [Target: arm-linux-gnueabihf]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 4.6.3-1ubuntu5' --with-bugurl=file:///usr/share/doc/gcc-4.6/README.Bugs --enable-languages=c,c++,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-4.6 --enable-shared --enable-linker-build-id --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.6 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-gnu-unique-object --enable-plugin --enable-objc-gc --enable-multilib --disable-sjlj-exceptions --with-arch=armv7-a --with-float=hard --with-fpu=vfpv3-d16 --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/4.6/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib/:/lib/arm-linux-gnueabihf/:/lib/../lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/../lib/:/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec334690705' '-rdynamic' '-march=armv7-a' '-mfloat-abi=hard' '-mfpu=vfpv3-d16' '-mthumb']
+  link line: [ /usr/lib/gcc/arm-linux-gnueabihf/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -export-dynamic -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu -m armelf_linux_eabi -z relro -o cmTryCompileExec334690705 /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crt1.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbegin.o -L/usr/lib/gcc/arm-linux-gnueabihf/4.6 -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib -L/lib/arm-linux-gnueabihf -L/lib/../lib -L/usr/lib/arm-linux-gnueabihf -L/usr/lib/../lib -L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../.. CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/arm-linux-gnueabihf/4.6/crtend.o /usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o]
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/collect2] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--no-add-needed] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib/ld-linux-armhf.so.3] ==> ignore
+    arg [-X] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [armelf_linux_eabi] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTryCompileExec334690705] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crti.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.6] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib]
+    arg [-L/lib/arm-linux-gnueabihf] ==> dir [/lib/arm-linux-gnueabihf]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/lib/arm-linux-gnueabihf]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../..] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../..]
+    arg [CMakeFiles/cmTryCompileExec334690705.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6] ==> [/usr/lib/gcc/arm-linux-gnueabihf/4.6]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/arm-linux-gnueabihf] ==> [/lib/arm-linux-gnueabihf]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/4.6/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/arm-linux-gnueabihf/4.6;/usr/lib/arm-linux-gnueabihf;/usr/lib;/lib/arm-linux-gnueabihf;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c1x] compiler features compiled with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2877620655/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2877620655.dir/build.make CMakeFiles/cmTryCompileExec2877620655.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2877620655.dir/feature_tests.c.o
+/usr/bin/cc   -std=c1x -o CMakeFiles/cmTryCompileExec2877620655.dir/feature_tests.c.o   -c /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec2877620655
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2877620655.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2877620655.dir/feature_tests.c.o  -o cmTryCompileExec2877620655 -rdynamic 
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1967733382/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1967733382.dir/build.make CMakeFiles/cmTryCompileExec1967733382.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1967733382.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTryCompileExec1967733382.dir/feature_tests.c.o   -c /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec1967733382
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1967733382.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1967733382.dir/feature_tests.c.o  -o cmTryCompileExec1967733382 -rdynamic 
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4171690782/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4171690782.dir/build.make CMakeFiles/cmTryCompileExec4171690782.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4171690782.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTryCompileExec4171690782.dir/feature_tests.c.o   -c /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec4171690782
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4171690782.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4171690782.dir/feature_tests.c.o  -o cmTryCompileExec4171690782 -rdynamic 
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the function libusb_handle_events_timeout_completed exists passed with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3571407612/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3571407612.dir/build.make CMakeFiles/cmTryCompileExec3571407612.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+make[1]: Warning: File `/usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c' has modification time 1.4e+09 s in the future
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3571407612.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=libusb_handle_events_timeout_completed   -o CMakeFiles/cmTryCompileExec3571407612.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3571407612
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3571407612.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=libusb_handle_events_timeout_completed    CMakeFiles/cmTryCompileExec3571407612.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3571407612 -rdynamic -lusb-1.0 
+make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function libusb_error_name exists passed with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec432509213/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec432509213.dir/build.make CMakeFiles/cmTryCompileExec432509213.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+make[1]: Warning: File `/usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c' has modification time 1.4e+09 s in the future
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec432509213.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=libusb_error_name   -o CMakeFiles/cmTryCompileExec432509213.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec432509213
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec432509213.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=libusb_error_name    CMakeFiles/cmTryCompileExec432509213.dir/CheckFunctionExists.c.o  -o cmTryCompileExec432509213 -rdynamic -lusb-1.0 
+make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec832161476/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec832161476.dir/build.make CMakeFiles/cmTryCompileExec832161476.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec832161476.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec832161476.dir/CheckIncludeFiles.c.o   -c /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec832161476
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec832161476.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec832161476.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec832161476 -rdynamic 
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3509340075/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3509340075.dir/build.make CMakeFiles/cmTryCompileExec3509340075.dir/build
+make[1]: Entering directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+make[1]: Warning: File `/usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c' has modification time 1.4e+09 s in the future
+/usr/local/bin/cmake -E cmake_progress_report /root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3509340075.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3509340075.dir/CheckFunctionExists.c.o   -c /usr/local/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3509340075
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3509340075.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3509340075.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3509340075 -rdynamic -lpthread -lusb-1.0 
+make[1]: warning:  Clock skew detected.  Your build may be incomplete.
+make[1]: Leaving directory `/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/CMakeTmp'
+
+
