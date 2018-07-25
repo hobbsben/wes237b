@@ -1,0 +1,2 @@
+/home/gkestler/wes237b_su2018/Assignment_3/code/dct/kernel_module/CPUcntr.ko
+/home/gkestler/wes237b_su2018/Assignment_3/code/dct/kernel_module/CPUcntr.o

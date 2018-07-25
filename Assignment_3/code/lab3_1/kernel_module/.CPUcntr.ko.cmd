@@ -1,1 +1,0 @@
-cmd_/root/Desktop/lab_2/kernel_module/CPUcntr.ko := ld -EL -r  -T /usr/src/kernels/3.12.0-xillinux-1.3/scripts/module-common.lds --build-id  -o /root/Desktop/lab_2/kernel_module/CPUcntr.ko /root/Desktop/lab_2/kernel_module/CPUcntr.o /root/Desktop/lab_2/kernel_module/CPUcntr.mod.o
