@@ -1,0 +1,1 @@
+/usr/bin/cc  -O3 -DNDEBUG   CMakeFiles/rtl_fm_wes.dir/rtl_fm_wes.c.o  -o rtl_fm_wes -rdynamic librtlsdr.so.0.5git libconvenience_static.a -lusb-1.0 -lpthread -lm -Wl,-rpath,/root/Documents/Lab3/lab3/lab3_3/release/build/src: 

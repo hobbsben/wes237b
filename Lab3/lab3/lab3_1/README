@@ -1,0 +1,6 @@
+how to run:
+
+taskset -c cpu_id ./lab3_1 length
+
+cpu_id is either 0 or 1
+length is the loop length

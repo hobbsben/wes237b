@@ -1,1 +1,0 @@
-cmd_/root/Desktop/kernel_Alireza/CPUcntr.ko := ld -EL -r  -T /usr/src/kernels/3.12.0-xillinux-1.3/scripts/module-common.lds --build-id  -o /root/Desktop/kernel_Alireza/CPUcntr.ko /root/Desktop/kernel_Alireza/CPUcntr.o /root/Desktop/kernel_Alireza/CPUcntr.mod.o

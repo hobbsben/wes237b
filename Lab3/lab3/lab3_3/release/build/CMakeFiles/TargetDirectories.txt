@@ -1,0 +1,11 @@
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtlsdr_shared.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/CMakeFiles/uninstall.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_adsb.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtlsdr_static.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/convenience_static.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_fm_wes.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_test.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_power.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_sdr.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_tcp.dir
+/root/Documents/Lab3/lab3/lab3_3/release/build/src/CMakeFiles/rtl_eeprom.dir
