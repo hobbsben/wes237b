@@ -11,6 +11,7 @@ int sobel_kernel_x[3][3] = {
 	{ 1,  0, -1}};
 
 
+
 Mat Gx(3,3, CV_32FC1, &sobel_kernel_x);
 
 void sobel(const Mat& src, Mat& dst)
@@ -38,6 +39,12 @@ for(int i=0; i<rows-2; i++)
 	}
 }
 }//end void;
+
+void sobel(const Mat& src, Mat& dst)
+{
+	// TODO
+}
+
 
 
 void sobel_unroll(const Mat& src, Mat& dst)
