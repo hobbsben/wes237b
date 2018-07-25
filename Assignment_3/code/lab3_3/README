@@ -1,0 +1,8 @@
+- Make sure to connect your SRD radio and a headphone to your Zedboard
+- Make sure your radio works, run test.sh in release folder: # ./test.sh
+- Create a new directory in release called build #cd release; mkdir build
+- Run cmake: # cmake ../../
+- Complete the code in lab3_3/src/rtl_fm_wes.c
+- Return to release/build/
+- Run make: # make
+- Check your code by running run.sh in the release directory (you should be able to hear classic music!): # ./run.sh
