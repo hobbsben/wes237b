@@ -44,17 +44,16 @@ for(int i=0;i<=HEIGHT-3;i++)
             S2=0;                           
 		for(int k=0;k<3;k++)
 		{   
-		int z=0;
-    	S1+=(Gx.at<int>(k,z+0)*(int)src.at<uint8_t>(i+k,j+z+0));
-	S1+=(Gx.at<int>(k,z+1)*(int)src.at<uint8_t>(i+k,j+z+1)); 
-	S1+=(Gx.at<int>(k,z+2)*(int)src.at<uint8_t>(i+k,j+z+2)); 
-
-	S2+=(Gy.at<int>(k,z+0)*(int)src.at<uint8_t>(i+k,j+z+0));   
- 	S2+=(Gy.at<int>(k,z+1)*(int)src.at<uint8_t>(i+k,j+z+1)); 					 	 S2+=(Gy.at<int>(k,z+2)*(int)src.at<uint8_t>(i+k,j+z+2)); 
+			for(int z=0; z<3; z++)
+			{
+    	S1+=(Gx.at<int>(k,z)*(int)src.at<uint8_t>(i+k,j+z));
+	S2+=(Gy.at<int>(k,z)*(int)src.at<uint8_t>(i+k,j+z)); 
 
         dst.at<uint8_t>(i,j)=(uint8_t)sqrt(S1*S1+S2*S2);
         //cout<<i<<","<<j<<",,,"<<(int)(abs(S1*S1)+abs(S2*S2))<<endl;
-		}	
+			}
+		}
+	
 	}
     
 }
