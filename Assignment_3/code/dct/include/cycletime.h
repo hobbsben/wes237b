@@ -28,7 +28,24 @@ static inline void init_counters(int32_t do_reset, int32_t enable_divider){
   asm volatile ("MCR p15, 0, %0, c9, c12, 1\n\t" :: "r"(0x8000000f));
   // Clear overflow 
   asm volatile ("MCR p15, 0, %0, c9, c12, 3\n\t" :: "r"(0x8000000f));
+}
+  //*****TODO Measure cache misses********//
+  // static inline void pmn_config(unsigned int cntr, unsigned evnt){  //from lab 3
+  static inline void cache_config(signed int cntr, unsigned evnt){
+  // configure PMSELR register for counter = cntr                // from lab 3
+  asm volatile ("MCR p15, 0, %0, c9, c12, 5\n\t" :: "r"(cntr));  // from lab 3
+  // configure PMXEVTYPER for event type = event                 // from lab 3
+  asm volatile ("MCR p15, 0, %0, c9, c13, 1\n\t" :: "r"(evnt));  // from lab 3
+}
 
-  //TODO Measure cache misses
+  //static inline unsigned int pmn_read(unsigned int cntr){          // from lab 3
+  static inline unsigned int cache_read(unsigned int cntr){
+  unsigned int value;  // from lab 3
+  // configure PMSELR register for counter = cntr                // from lab 3
+  asm volatile ("MCR p15, 0, %0, c9, c12, 5\n\t" :: "r"(cntr));  // from lab 3
+  // Read from PMXEVCNTR register and store it to value 
+  asm volatile ("MRC p15, 0, %0, c9, c13, 2\n\t" : "=r"(value));  // from lab 3
+  return value;
+
 }
 
