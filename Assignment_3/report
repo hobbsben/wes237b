@@ -1,3 +1,0 @@
-For Cache unrolling we reduced cache size by taking out a lot of the work from the for-loop. Instead of calling a short for-loop to do simple matrix multiplication and addition, we used 1 less for-loop and just did this step manually. Since accessing the for-loop takes a lot of time to check boundaries, but addition and multiplication is fast, this improves overall performance.
-
-For Neon Instructions, we improved performance by taking out, again more for-loops, and attempt at replacing them with simple arithmetic. This time, however we did it with NEON instructions, which are faster because they're like assembly language. Its a lower level language so its a  lot faster. Essentially, neon was very similar to loop unrolling but this time with assembly/NEON.
