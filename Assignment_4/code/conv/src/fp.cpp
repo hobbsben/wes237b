@@ -35,19 +35,20 @@ _get:
 
 	for (int j=0; j<len; j++){
 	  arr_cos_flt[j] = cos( 2.0*(float)((j)%freq)/(float)(freq) * M_PI);
+	 // cout<<100+50*arr_cos_flt[j]<<endl;
 	  arr_cos_fix[j] = TOFIX(arr_cos_flt[j], q1);
 	}
 	
-	for(int j=0; j<len; j++){
+	for(int j=0; j<len; j++){//len=1024
 	  image_flt.at<float>(100+50*arr_cos_flt[j], j+44) = 1;
 	  image_fix.at<uchar>(100+50*TOFLT(FCONV(arr_cos_fix[j], q1, q2), q2), j+44) = 255;
 	}
 
 	/* drawing signals */
 	imshow("float", image_flt);
-	moveWindow("float", 20,0);
+	cvMoveWindow("float", 20,0); //changed this for VM
 	imshow("fix", image_fix);
-	moveWindow("fix", 20,400);
+	cvMoveWindow("fix", 20,400);// changed this for VM
 	waitKey();
 	
 	int klen = 5;
@@ -70,19 +71,37 @@ _get:
         unsigned int c_start;
         init_counters(1, 0);
         c_start = get_cyclecount();
-	/* insert your code here */
+	/******************** insert your code here ********************/
+	float temp=0;
+	for(int i=0; i<1028-5;i++)
+	{temp=0;
+		for(int j=0;j<5;j++)
+		{
+		temp=temp+arr_cos_flt[i+j]*kernel_flt[j];
+		}
+		res_flt[i]=temp;
+}
 
-
-	/* ********************* */
+	/* ********************************************************* */
         cout << "float CPU Cycles: " << get_cyclecount() - c_start << endl;
 	
-	/*1D convolution using fixed point */
+	/*1D convolution using FIXED POINT */
         init_counters(1, 0);
         c_start = get_cyclecount();
-	/* insert your code here */
+	/* ******************** insert your code here ******************** */
+
+	uint8_t tempfix=0;
+	for(int i=0; i<1028-5;i+=1)
+	{	tempfix=0;
+		for(int j=0;j<5;j++)
+		{	
+		tempfix+=arr_cos_fix[i+j]*kernel_fix[j];	
+		}
+	res_fix[i]=(tempfix>>1);
+	}
 
 
-	/* ********************* */
+	/* *********************************************************** */
         cout << "fixpoint CPU Cycles: " << get_cyclecount() - c_start << endl;
 
 /* DO NOT MODIFY ANYTHING BELOW THIS LINE */
@@ -104,9 +123,9 @@ _get:
 	  image_fix.at<uchar>(100+50*TOFLT(FCONV(res_fix[j], 2*q1, q2), q2), j+44) = 255;
 	}
 	imshow("float", image_flt);
-	moveWindow("float", 20,0);
+	cvMoveWindow("float", 20,0); //changed for VM
 	imshow("fix", image_fix);
-	moveWindow("fix", 20,400);
+	cvMoveWindow("fix", 20,400); // changed for VM
 	waitKey();
  
   return 0;
