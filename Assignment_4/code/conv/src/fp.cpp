@@ -72,16 +72,13 @@ _get:
         init_counters(1, 0);
         c_start = get_cyclecount();
 	/******************** insert your code here ********************/
-	float temp=0;
-	for(int i=0; i<1028-5;i++)
-	{temp=0;
-		for(int j=0;j<5;j++)
+	for(int i=0; i<len+klen-1;i++)
+	{
+		for(int j=0;j<klen;j++)
 		{
-		temp=temp+arr_cos_flt[i+j]*kernel_flt[j];
+		res_flt[i]+=arr_cos_flt[i]*kernel_flt[j];
 		}
-		res_flt[i]=temp;
 }
-
 	/* ********************************************************* */
         cout << "float CPU Cycles: " << get_cyclecount() - c_start << endl;
 	
@@ -89,18 +86,13 @@ _get:
         init_counters(1, 0);
         c_start = get_cyclecount();
 	/* ******************** insert your code here ******************** */
-
-	uint8_t tempfix=0;
-	for(int i=0; i<1028-5;i+=1)
-	{	tempfix=0;
-		for(int j=0;j<5;j++)
-		{	
-		tempfix+=arr_cos_fix[i+j]*kernel_fix[j];	
+	for(int i=0; i<len+klen-1;i+=1)
+	{
+		for(int j=0;j<klen;j++)
+		{
+	res_fix[i]+=arr_cos_fix[i]*kernel_fix[j];
 		}
-	res_fix[i]=(tempfix>>1);
 	}
-
-
 	/* *********************************************************** */
         cout << "fixpoint CPU Cycles: " << get_cyclecount() - c_start << endl;
 
