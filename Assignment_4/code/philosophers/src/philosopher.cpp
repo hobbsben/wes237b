@@ -24,6 +24,11 @@ pthread_mutex_t forks[4];
 pthread_mutex_t cntr;
 int counter;
 
+int min_eat = 1;   // initialize default min time in ms
+int max_eat = 100;       // initialize default max time in ms
+int min_think = 1;   // initialize default min time in ms
+int max_think = 100;       // initialize default max time in ms
+
 // /*
 void init_led(int led){
 
@@ -60,41 +65,51 @@ void led_state(int led, int v){
         system(str.c_str());
 }
 
-
 // */
 
 void *func(int n)
    {
-   printf ("Philosopher %d is thinking\n",n);
+   //printf ("Philosopher %d is waiting\n",n);
 
    //when philosopher 4 is eating he takes fork 1 and fork 4
    pthread_mutex_lock(&forks[n]);
    pthread_mutex_lock(&forks[(n+1)%4]);
-   printf ("Philosopher %d is eating\n",n);
-	int j=0;
+   //printf ("Philosopher %d is eating\n",n);
+   int j=0;
    for(int i = 0; i<20; i++)
 	{
 	led_state(n+4, j+=i%2);
 	usleep(100000);
-	cout << "blink\n";
+	//cout << "blink\n";
 	}
    usleep(50000);
    pthread_mutex_unlock(&forks[n]);
    pthread_mutex_unlock(&forks[(n+1)%4]);
 
-   printf ("Philosopher %d finished eating\n",n);
+   //printf ("Philosopher %d is thinking\n",n);
    led_state(n+4, 0);
 
    return(NULL);
    }
 
-int main()
-   {
+int main(int argc, const char * argv[])
+{
+   // take in min and max time from the command line argument
+   min_eat =  atoi(argv[1]);   
+   max_eat = atoi(argv[2]);
+   min_think =  atoi(argv[3]);   
+   max_think = atoi(argv[4]);
+   cout << min_eat << endl;
+   cout << max_eat << endl;	
+   cout << min_think << endl;
+   cout << max_think << endl;	
+   
    // initialize leds
-   init_led(4);
-   init_led(5);
-   init_led(6);
-   init_led(7);
+   //init_led(4);
+   //init_led(5);
+   //init_led(6);
+   //init_led(7);
+
    // turn all leds off at beginning
    led_state(4, 0);
    led_state(5, 0);
