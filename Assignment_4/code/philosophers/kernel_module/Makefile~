@@ -1,0 +1,1 @@
+obj-m += CPUcntr.o -C /lib/modules/$(uname -r)/build M=$(pwd) modules

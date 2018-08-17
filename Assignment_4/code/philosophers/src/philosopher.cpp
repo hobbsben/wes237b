@@ -12,6 +12,8 @@
 #include <string>
 #include <sstream>
 #include <pthread.h>
+#include <cycletime.h>
+#include <main.h>
 using namespace std;
 
 #define thread_num 4 
@@ -83,6 +85,12 @@ void *philosopher(void *); /* prototype of philosopher routine */
  
 int main(int argc, const char * argv[]) 
 { 
+	
+   init_led(4);
+   init_led(5);
+   init_led(6);
+   init_led(7);
+   
    min_eat =  atoi(argv[1]);   
    max_eat = atoi(argv[2]);
    min_think =  atoi(argv[3]);   
@@ -125,10 +133,19 @@ int main(int argc, const char * argv[])
 void *philosopher(void  *arg) 
 {  
     int  forknum = *(int*)arg; 
- 
+    unsigned int eating_cycle_start = 0;
+    unsigned int eating_cycle_count = 0;
+
+    unsigned int thinking_cycle_start = 0;
+    unsigned int thinking_cycle_count = 0;
+
+    unsigned int waiting_cycle_start = 0;
+    unsigned int waiting_cycle_count = 0;
+
     while( 1 ) 
     {
- 
+        
+	init_counters(1, 0);
         // lock the left fork 
         pthread_mutex_lock( m + forknum ); 
          
@@ -146,6 +163,8 @@ void *philosopher(void  *arg)
              
             if( forks[(forknum+1)%thread_num]==1 ) 
             { /* the right is available */ 
+                eating_cycle_count = 0;
+                eating_cycle_count = get_cyclecount();  // start eating cycle count
                 printf("philosopher %d: right=%d\n", forknum,
                                     forks[(forknum+1)%thread_num]);
                 
@@ -161,19 +180,27 @@ void *philosopher(void  *arg)
                 numMeals[forknum]++; 
 		        mealCount++; 
 		int j=0;
-                for(int i=0; i<rand() % max_eat + min_eat;i++) /* eating time */ 
+                for(int i=0; i<rand() % max_eat + min_eat;i++) // eating time 
  		{
 		led_state(forknum+4,j%2);
+                
 		usleep(5000);
 		j+=i;
-		}
+		} 
+		eating_cycle_count = get_cyclecount() - eating_cycle_start;  // calculate eating cycles count
+		cout << "Philosopher " << forknum << " eating cycle count: " << eating_cycle_count << endl;
 		
-		for(int i=0; i<rand() % max_think + min_think;i++) /* thinking time */ 
+                thinking_cycle_count = 0;  // initialize thinking cycle count to 0
+                thinking_cycle_count = get_cyclecount(); // get current cycle count
+                for(int i=0; i<rand() % max_think + min_think;i++) // thinking time  
 		{
-		led_state(forknum+4,1);		
+			led_state(forknum+4,1);		
 		}  
+                thinking_cycle_count = get_cyclecount() - thinking_cycle_start;  // calculate thinking cycles count
+		cout << "Philosopher " << forknum << " thinking cycle count: " << thinking_cycle_count << endl;
 		
-		led_state(forknum+4,0);             
+		 led_state(forknum+4,0);           
+  
 		/* lock the left & right forks */ 
                 pthread_mutex_lock( m + forknum );  
                 pthread_mutex_lock( m + ( (forknum+1) % thread_num) ); 
@@ -188,9 +215,14 @@ void *philosopher(void  *arg)
                 pthread_mutex_unlock (&m[(forknum+1)%thread_num]); 
 		
                 usleep(rand() % 3000000); /* food settling time */ 
+                
+               
             } 
-            else 
-            { /* the right is unavailable */ 
+            else //philosopher is waiting
+            { 
+                waiting_cycle_count = 0;
+                waiting_cycle_count = get_cyclecount(); // set start cycle count for waiting mode
+                /* the right is unavailable */ 
                 printf("philosopher %d: right=%d\n", 
                        forknum, forks[(forknum+1)%thread_num]);	 
                 printf("Philosopher %d: I can't grab the right fork\n\n", forknum); 
@@ -209,10 +241,16 @@ void *philosopher(void  *arg)
 
                 /* wait for a while and try again later */ 
                 usleep(rand() % 3000000); 
+                
+                // calculate phil waiting cycle counts
+                waiting_cycle_count = get_cyclecount() - waiting_cycle_count;
+                cout << "Philosopher " << forknum << " waiting cycle count: " << waiting_cycle_count << endl;
             } 
         }     
         else 
         { /* the left fork is unavailable */ 
+            waiting_cycle_count = 0;
+            waiting_cycle_count = get_cyclecount(); 
             printf("philosopher %d: left=%d\n",forknum,forks[forknum]);  
             printf("Philosopher %d: I can't grab the left fork\n\n", 
                    forknum); 
@@ -223,9 +261,11 @@ void *philosopher(void  *arg)
            /* wait for a while and try again later */ 
 
             usleep(rand() % 3000000);
+            waiting_cycle_count = get_cyclecount() - waiting_cycle_count;
+                cout << "Philosopher " << forknum << " waiting cycle count: " << waiting_cycle_count << endl;
         } 
 	
-       sched_yield();  /* for LINUX you may also use pthread_yield(); */
+       sched_yield(); 
     } 
     printf("Philosopher %d has finished eating\n", forknum); 
     pthread_exit(0); 
