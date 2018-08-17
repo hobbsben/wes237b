@@ -135,7 +135,7 @@ void *philosopher(void  *arg)
         if( forks[forknum] == 1 ) 
         { // the left is available  
             printf("philosopher %d: left=%d\n",forknum,forks[forknum]);  
-            printf("Philosopher %d: I have the left fork\n", forknum); 
+            printf("Philosopher %d: I got the left one!\n", forknum); 
  
             forks[forknum]=0; // set the left fork unavailable 
              
@@ -155,7 +155,7 @@ void *philosopher(void  *arg)
                 /* unlock the right fork */ 
                 pthread_mutex_unlock( m + ( (forknum+1) % thread_num) ); 
 		 
-		        printf("Philosopher %d: I have two forks\n", forknum); 
+		        printf("Philosopher %d: I got two forks!\n", forknum); 
                 printf("philosopher %d: I am eating!\n\n", forknum); 
 		
                 numMeals[forknum]++; 
@@ -193,7 +193,7 @@ void *philosopher(void  *arg)
             { /* the right is unavailable */ 
                 printf("philosopher %d: right=%d\n", 
                        forknum, forks[(forknum+1)%thread_num]);	 
-                printf("Philosopher %d: I can't grab the right fork\n\n", forknum); 
+                printf("Philosopher %d: I cannot get the right one!\n\n", forknum); 
  
                 /* unlock the right fork */ 
                 pthread_mutex_unlock( &m[(forknum+1)%thread_num] ); 
@@ -214,7 +214,7 @@ void *philosopher(void  *arg)
         else 
         { /* the left fork is unavailable */ 
             printf("philosopher %d: left=%d\n",forknum,forks[forknum]);  
-            printf("Philosopher %d: I can't grab the left fork\n\n", 
+            printf("Philosopher %d: I cannot even get the left fork!\n\n", 
                    forknum); 
  
             /* unlock the left fork */ 
@@ -227,7 +227,7 @@ void *philosopher(void  *arg)
 	
        sched_yield();  /* for LINUX you may also use pthread_yield(); */
     } 
-    printf("Philosopher %d has finished eating\n", forknum); 
+    printf("Philosopher %d has finished the dinner and is leaving!\n", forknum); 
     pthread_exit(0); 
 } 
 

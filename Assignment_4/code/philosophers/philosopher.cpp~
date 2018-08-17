@@ -24,7 +24,6 @@ pthread_mutex_t forks[4];
 pthread_mutex_t cntr;
 int counter;
 
- /*
 void init_led(int led){
 
         ostringstream led_s;
@@ -85,13 +84,11 @@ void *func(int n)
 
    return(NULL);
    }
-*/
 
 int main(int arg1)
    {
    cout << arg1 << "\n\n" << endl;
    // initialize leds
-   /*
    init_led(4);
    init_led(5);
    init_led(6);
@@ -116,6 +113,6 @@ int main(int arg1)
        for(i=0;i<4;i++)
           pthread_mutex_destroy(&forks[i]);
     }
-   */ 
+   
    return 0;
    }

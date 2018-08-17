@@ -1,5 +1,5 @@
 CXX?=g++
-CXXFLAGS=-O0 -fpermissive -pthread -lpthread
+CXXFLAGS=-O0 -fpermissive -pthread
 
 
 EXEC=lab4
