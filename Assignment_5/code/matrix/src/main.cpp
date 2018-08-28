@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
 
 	// MM GPU
 	float time_gpu = run_mm_gpu(h_A, h_B, h_C, M, N);
-
+        Mat output = Mat(N, N, CV_32F, h_C);
 
 	// Profiling
 	float time_cpu;
@@ -75,7 +75,7 @@ int main(int argc, char const *argv[])
 	Mat cv_A = Mat(N, M, CV_32F, h_A);
 	Mat cv_B = Mat(M, N, CV_32F, h_B);
 	Mat cv_C = Mat(N, N, CV_32F, h_Ccpu);
-
+        
 	cv_C = cv_A * cv_B;
 
 	CudaSafeCall(cudaEventRecord(stop, 0));
@@ -93,9 +93,13 @@ int main(int argc, char const *argv[])
 		{
 			float diff = abs(h_C[i*N + j] - h_Ccpu[i*N + j]);
 			mse += diff * diff;
-		}
+                        		}
 	}
 	mse /= N*N;
+
+        cout  <<"Pats output: " << setprecision(2) <<  output << endl;
+        cout <<"CPU output: " << setprecision(2) << cv_C << endl;
+
 
 	float rmse = sqrt(mse);
 

@@ -8,12 +8,36 @@
 
 __global__ void block_mm_kernel(const float* A, const float* B, float* output, int M, int N) 
 {
-int idx = blockIdx.x * blockDim.x + threadIdx.x;
-int idy = blockIdx.y * blockDim.y + threadIdx.y;
-	if(1)
-	{
-	output[idy*M+idx]=A[idy*M+idx]*B[idy*M+idx];
-	}
+	int gidx = blockIdx.x * blockDim.x + threadIdx.x;
+	int gidy = blockIdx.y * blockDim.y + threadIdx.y;
+	int tidx = threadIdx.x;
+        int tidy = threadIdx.y;
+        float sum = 0.0;        
+
+        const int NUM_BLOCKS = (N*M)/BLOCK_SIZE;  // calculate amount of blocks
+        
+        __shared__  float A_shared[BLOCK_SIZE*BLOCK_SIZE];
+        __shared__  float B_shared[BLOCK_SIZE*BLOCK_SIZE];
+        __shared__  float C_shared[BLOCK_SIZE*BLOCK_SIZE];
+
+        //store input matrices into shared memory
+        for(int h = 0; h < N*M; h+=BLOCK_SIZE)
+        {
+            A_shared[tidx+tidy*BLOCK_SIZE] = A[tidx+tidy*BLOCK_SIZE];
+            B_shared[tidx+tidy*BLOCK_SIZE] = B[tidx+tidy*BLOCK_SIZE];
+            __syncthreads();
+        }
+
+        // calculate sum
+        for(int i = 0; i < NUM_BLOCKS; i+=BLOCK_SIZE)
+        {
+	     if(tidx < BLOCK_SIZE || tidy < BLOCK_SIZE)
+	     {
+	         C_shared[tidx+tidy] += A_shared[gidx+gidy*M] * B_shared[gidx*N+gidy];
+	     }
+        }
+        output[gidx+gidy] = C_shared[tidx+tidy];
+        __syncthreads();
 }//endline
 
 
