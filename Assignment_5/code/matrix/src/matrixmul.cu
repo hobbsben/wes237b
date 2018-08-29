@@ -12,31 +12,36 @@ __global__ void block_mm_kernel(const float* A, const float* B, float* output, i
 	int gidy = blockIdx.y * blockDim.y + threadIdx.y;
 	int tidx = threadIdx.x;
         int tidy = threadIdx.y;
-        float sum = 0.0;        
+        float sum = 0;
+;        
 
-        const int NUM_BLOCKS = (N*M)/BLOCK_SIZE;  // calculate amount of blocks
+        const int NUM_BLOCKS = M/(BLOCK_SIZE);  // calculate amount of blocks
         
         __shared__  float A_shared[BLOCK_SIZE*BLOCK_SIZE];
         __shared__  float B_shared[BLOCK_SIZE*BLOCK_SIZE];
-        __shared__  float C_shared[BLOCK_SIZE*BLOCK_SIZE];
+        //__shared__  float C_shared[BLOCK_SIZE*BLOCK_SIZE];
 
-        //store input matrices into shared memory
-        for(int h = 0; h < M; h+=BLOCK_SIZE)
-        { 
-            A_shared[tidx+tidy*BLOCK_SIZE + h] = A[tidx+tidy*BLOCK_SIZE + h];
-            B_shared[tidx+tidy*BLOCK_SIZE + h] = B[tidx+tidy*BLOCK_SIZE + h];
-            __syncthreads();
-        
-
-        // calculate sum
-           for(int i = 0; i < NUM_BLOCKS; i++)
-           {
-	       //if(tidx < BLOCK_SIZE || tidy < BLOCK_SIZE)
-	      // {
-	           C_shared[tidx+tidy] += A_shared[gidx+gidy*M] * B_shared[gidx*N+gidy];
-	      // }
+        //loop through blocks in the grid 
+        for(int grid_block = 0; grid_block < NUM_BLOCKS; grid_block++)       
+        {   
+            //check grid boundary conditions
+            //if(tidx+tidy*grid_block < M*N)
+            //{
+                //store input matrices into shared memory
+                A_shared[tidx+tidy*BLOCK_SIZE] = A[(grid_block*BLOCK_SIZE)+tidx+(tidy+gidy)*M];
+                B_shared[tidx+tidy*BLOCK_SIZE] = B[gidx+tidx+(grid_block*BLOCK_SIZE+tidy)*M];
+                __syncthreads();
+             //}
+         // loop through elements within the block
+         for(int block_element = 0; block_element < BLOCK_SIZE; block_element++)
+            {
+               // check block boundary conditions
+	       //  if(tidx+tidy*+grid_block*BLOCK_SIZE < M*N)
+	       // {
+	           sum += A_shared[tidx+tidy*BLOCK_SIZE] * B_shared[tidx+tidy*BLOCK_SIZE + block_element];
+	       // }
            }
-           output[gidx+gidy] = C_shared[tidx+tidy];
+           output[gidx+gidy*N ] += sum;
         }
         
         
