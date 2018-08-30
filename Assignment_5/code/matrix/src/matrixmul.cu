@@ -43,7 +43,7 @@ __global__ void block_mm_kernel(const float* A, const float* B, float* output, i
                    sum += A_shared[tidx  + (b_row  * BLOCK_SIZE)] 
                         * B_shared[tidy  + (b_row  * BLOCK_SIZE)];
 	           
-                 
+                
 	        }
           //   }
            output[gidx+(gidy*N) ] = sum;
