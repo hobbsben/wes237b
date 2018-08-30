@@ -45,7 +45,7 @@ __global__ void block_mm_kernel(const float* A, const float* B, float* output, i
 	           
                  
 	        }
-          // }
+          //   }
            output[gidx+(gidy*N) ] = sum;
         }
 //printf("%d a_shared : %f\n",blockIdx.x, A_shared[tidx+(tidy*BLOCK_SIZE)]);
