@@ -8,52 +8,40 @@
 
 __global__ void block_mm_kernel(const float* A, const float* B, float* output, int M, int N) 
 {
-	int gidx = blockIdx.x * blockDim.x + threadIdx.x;
-	int gidy = blockIdx.y * blockDim.y + threadIdx.y;
-	int tidx = threadIdx.x;
-        int tidy = threadIdx.y;
-        float sum = 0;
-        
+   // Block index
+            int bidx = blockIdx.x;
+            int bidy = blockIdx.y;
 
-        const int NUM_BLOCKS = M/(BLOCK_SIZE);  // calculate amount of blocks
-        
-        __shared__  float A_shared[BLOCK_SIZE*BLOCK_SIZE];
-        __shared__  float B_shared[BLOCK_SIZE*BLOCK_SIZE];
-        //__shared__  float C_shared[BLOCK_SIZE*BLOCK_SIZE];
+            int tidx = threadIdx.x;
+            int tidy = threadIdx.y;
+            __shared__ float A_shared[BLOCK_SIZE][BLOCK_SIZE];
+            __shared__ float B_shared[BLOCK_SIZE][BLOCK_SIZE];
 
-        //loop through blocks in the grid 
-        for(int grid_block = 0; grid_block < 1; grid_block++)       
-        {   
-            //check grid boundary conditions
-            //if(tidx+tidy*grid_block < M*N)
-            //{
-                //store input matrices into shared memory
-                A_shared[tidx+(tidy*BLOCK_SIZE)] = A[(tidx + BLOCK_SIZE* grid_block) +(gidy*M/*added M*/)];
-                B_shared[tidx+(tidy*BLOCK_SIZE)] = B[gidx*N + (tidy+BLOCK_SIZE*  grid_block)];
+       int aBegin = M * BLOCK_SIZE * bidy;
+       int aEnd   = aBegin + M - 1;
+       int aStep  = BLOCK_SIZE;
 
+       int bBegin = BLOCK_SIZE * bidx;
+       int bStep  = BLOCK_SIZE * N;
 
-                __syncthreads();
-             //}
-         // loop through elements within the block
-         //for(int a_row = 0; a_row < BLOCK_SIZE; a_row++)
-          //  {
-            for(int b_row = 0; b_row < BLOCK_SIZE; b_row++)
-                {
-                
-                   sum += A_shared[tidx  + (b_row  * BLOCK_SIZE)] 
-                        * B_shared[tidy  + (b_row  * BLOCK_SIZE)];
-	           
-                
-	        }
-          //   }
-           output[gidx+(gidy*N) ] = sum;
-        }
-//printf("%d a_shared : %f\n",blockIdx.x, A_shared[tidx+(tidy*BLOCK_SIZE)]);
-//printf("%d b_shared : %f\n",blockIdx.y, B_shared[tidx+(tidy*BLOCK_SIZE)]);
-        
-        
+       float sum = 0;
+        // loop through blocks
+       for (int a = aBegin, b = bBegin; a <= aEnd; a += aStep, b += bStep) 
+	{
+A_shared[tidy][tidx] = A[M*tidy+tidx +a];                                                                 
+ B_shared[tidy][tidx]= B[N*tidy+tidx +b];                                                                 
+    // sync the threads
+        __syncthreads();                                                                                  
+//accumulation
+            for (int k=0;k< BLOCK_SIZE;++k)                                                              
+ sum+=A_shared[tidy][k]*B_shared[k][tidx];                                                                
+                                                                                                             
+// sync it
+       __syncthreads();                                                                                  
+        }                                                                                                     
+        int c = N*BLOCK_SIZE* bidy + BLOCK_SIZE * bidx;                                                       
+        output[ N * tidy + tidx +c] = sum;             
 }//endline
-
 
 inline int divup(int a, int b)
 {
@@ -62,7 +50,6 @@ inline int divup(int a, int b)
 	else
 		return a / b;
 }
-
 
 float run_mm_gpu(const float* A, const float* B, float* C, int M, int N)
 {
